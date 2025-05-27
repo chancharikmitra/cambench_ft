@@ -1,0 +1,13 @@
+### Note: DO NOT use quantized model or quantization_bit when merging lora adapters
+
+### model
+model_name_or_path: ../models/qwen2.5_vl-3b/llava_cot_sft
+adapter_name_or_path: ../saves/qwen2.5_vl-3b/lora/sft_dpo
+template: qwen2_vl
+trust_remote_code: true
+
+### export
+export_dir: ../models/qwen2.5_vl-3b/llava_cot_sft_dpo
+export_size: 2
+export_device: auto
+export_legacy_format: false

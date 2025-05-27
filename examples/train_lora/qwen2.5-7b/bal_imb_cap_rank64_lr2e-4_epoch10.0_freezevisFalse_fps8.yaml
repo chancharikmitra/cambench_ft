@@ -1,0 +1,49 @@
+bf16: false
+cutoff_len: 4096
+dataset: cam_motion_balanced_vqa, cam_motion_imbalanced_vqa, cam_motion_caption
+streaming: false
+ddp_timeout: 180000000
+# deepspeed: examples/deepspeed/ds_z3_config.json
+do_train: true
+finetuning_type: lora
+flash_attn: fa2
+freeze_multi_modal_projector: true
+freeze_vision_tower: false
+gradient_accumulation_steps: 8
+image_max_pixels: 262144
+learning_rate: 0.0002
+logging_steps: 100
+lora_rank: 64
+lora_target: all
+lr_scheduler_type: cosine
+max_samples: 100000
+# max_steps: 14710
+model_name_or_path: Qwen/Qwen2.5-VL-7B-Instruct
+num_train_epochs: 10.0
+output_dir: saves/qwen2.5_vl-7b/lora/bal_imb_cap_rank64_lr2e-4_epoch10.0_freezevisFalse_fps8
+overwrite_cache: true
+overwrite_output_dir: true
+per_device_train_batch_size: 4
+plot_loss: true
+# preprocessing_num_workers: 64
+save_steps: 200
+stage: sft
+template: qwen2_vl
+trust_remote_code: true
+video_fps: 8.0
+video_max_pixels: 16384
+warmup_ratio: 0.1
+use_adam_mini: false
+
+## eval
+val_size: 200
+per_device_eval_batch_size: 1
+eval_strategy: steps
+eval_steps: 200
+
+# streaming args
+# buffer_size: 128
+# preprocessing_batch_size: 128
+# streaming: true
+# accelerator_config:
+#   dispatch_batches: false

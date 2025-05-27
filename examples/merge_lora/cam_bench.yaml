@@ -1,0 +1,13 @@
+### Note: DO NOT use quantized model or quantization_bit when merging lora adapters
+
+### model
+model_name_or_path: chancharikm/qwen2.5-vl-7b-cam-motion-preview
+adapter_name_or_path: /data3/cmitra/saves/qwen2_vl-7b/lora/cambench_sft_dpo_5000
+template: qwen2_vl
+trust_remote_code: true
+
+### export
+export_dir: /data3/cmitra/models/qwen2_vl-7b/dpo/cambench_sft_dpo_5000
+export_size: 5
+export_device: cpu
+export_legacy_format: false

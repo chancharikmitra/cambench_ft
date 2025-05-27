@@ -1,0 +1,46 @@
+### model
+model_name_or_path: deepseek-ai/DeepSeek-R1-Distill-Qwen-7B
+trust_remote_code: true
+
+### method
+stage: dpo
+do_train: true
+finetuning_type: lora
+lora_rank: 16
+lora_target: all
+pref_beta: 0.1
+pref_loss: sigmoid  # choices: [sigmoid (dpo), orpo, simpo]
+
+### dataset
+dataset: nemotron_dpo_1, nemotron_dpo_2, nemotron_dpo_3
+template: deepseek3
+cutoff_len: 4096
+max_samples: 1000000
+overwrite_cache: true
+preprocessing_num_workers: 128
+
+### output
+output_dir: ../saves/deepseek-r1-distill-qwen-1.5b-dpo
+logging_steps: 50
+save_steps: 500
+plot_loss: true
+overwrite_output_dir: true
+
+### train
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 8
+learning_rate: 7.0e-6
+num_train_epochs: 2
+lr_scheduler_type: cosine
+warmup_ratio: 0.05
+bf16: true
+ddp_timeout: 180000000
+flash_attn: fa2
+use_adam_mini: false
+
+### eval
+# eval_dataset: dasd
+val_size: 250
+per_device_eval_batch_size: 1
+eval_strategy: steps
+eval_steps: 500
