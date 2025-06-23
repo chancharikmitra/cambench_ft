@@ -1,6 +1,35 @@
-# Directions for Using Modified LLaMA-Factory Codebase to Finetune Models: 
+# Directions for Using Modified LLaMA-Factory Codebase Using CameraBench:
 
-(Directions)[https://docs.google.com/document/d/1afJwQ_9OIhQZUKoZkHYsUW1unDXC9TSMff8mdB-8jpY/edit?tab=t.0]
+Finetune Large Multimodal Models on camera motion understanding using [CameraBench](https://linzhiqiu.github.io/papers/camerabench/) - a comprehensive dataset for understanding camera motion in videos, designed and validated by experts.
+
+## Data Download
+
+```bash
+git clone https://github.com/linzhiqiu/video_annotation/
+cd video_annotation
+pip install -e .
+python download.py --json_path video_data/20250227_0324ground_only/videos.json --label_collections cam_motion
+```
+
+Now, go to `data/cam_motion` and make sure to update the video paths with the proper directory where you saved the videos.
+
+## Code Setup:
+
+1. Follow all setup instructions for LLaMA-Factory Below
+2. pip install -e ".[torch,metrics]"
+3. pip install git+https://github.com/huggingface/transformers.git@refs/pull/36188/head
+4. pip install deepspeed --use-pep517
+5. pip install flash-attn --no-build-isolation --use-pep517
+6. export DISABLE_VERSION_CHECK=1
+7. export FORCE_QWENVL_VIDEO_READER=torchvision
+
+## Running Finetuning Code:
+
+```
+llamafactory-cli train examples/train_full/camerabench_7b.yaml
+```
+
+Scripts are available for model sizes 32B and 72B as well.
 
 ![# LLaMA Factory](assets/logo.png)
 
