@@ -23,6 +23,8 @@ Now, go to `data/cam_motion` and make sure to update the video paths with the pr
 6. export DISABLE_VERSION_CHECK=1
 7. export FORCE_QWENVL_VIDEO_READER=torchvision
 
+Note: It is possible you may need to set your `HF_TOKEN` as well if you get an error related to the processor.
+
 ## Running Finetuning Code:
 
 ```
