@@ -5,8 +5,8 @@ import os
 
 # Config - file to modify
 json_file = "dataset_info.json"
-from_cluster = "cam_motion_TRINITY"
-to_cluster = "cam_motion_LAMBDA"
+from_cluster = "cam_motion_LAMBDA"
+to_cluster = "cam_motion"
 
 print(f"Updating paths in {json_file}: {from_cluster} → {to_cluster}")
 

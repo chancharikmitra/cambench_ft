@@ -1,17 +1,12 @@
 # Directions for Using Modified LLaMA-Factory Codebase Using CameraBench:
 
-Finetune Large Multimodal Models on camera motion understanding using [CameraBench](https://linzhiqiu.github.io/papers/camerabench/) - a comprehensive dataset for understanding camera motion in videos, designed and validated by experts.
+Finetune Large Multimodal Models on camera motion understanding using [CameraBench](https://linzhiqiu.github.io/papers/camerabench/) - a comprehensive dataset for understanding camera motion in videos, designed and validated by experts. We use a modified version of the LLaMA-Factory codebase to finetune our models.
 
 ## Data Download
 
-```bash
-git clone https://github.com/linzhiqiu/video_annotation/
-cd video_annotation
-pip install -e .
-python download.py --json_path video_data/20250227_0324ground_only/videos.json --label_collections cam_motion
-```
+Download the videos from the following HuggingFace (repo)[https://huggingface.co/datasets/chancharikm/cambench_train_videos].
 
-Now, go to `data/cam_motion` and make sure to update the video paths with the proper directory where you saved the videos.
+Now, go to `data/cam_motion` (where our prompts and annotations are saved) and make sure to update the video paths with the proper directory where you saved the videos.
 
 ## Code Setup:
 
@@ -21,9 +16,10 @@ Now, go to `data/cam_motion` and make sure to update the video paths with the pr
 4. pip install deepspeed --use-pep517
 5. pip install flash-attn --no-build-isolation --use-pep517
 6. export DISABLE_VERSION_CHECK=1
-7. export FORCE_QWENVL_VIDEO_READER=torchvision
 
 Note: It is possible you may need to set your `HF_TOKEN` as well if you get an error related to the processor.
+
+If you would like to use multinode finetuning, please set up according to your system requirements. Relevant code in: `src/llamafactory/cli.py`.
 
 ## Running Finetuning Code:
 

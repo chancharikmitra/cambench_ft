@@ -1,5 +1,5 @@
 ### model
-model_name_or_path: Qwen/Qwen2.5-VL-72B-Instruct 
+model_name_or_path: Qwen/Qwen2.5-VL-32B-Instruct
 image_max_pixels: 262144
 video_max_pixels: 16384
 trust_remote_code: true
@@ -9,13 +9,13 @@ video_fps: 8.0
 stage: sft
 do_train: true
 finetuning_type: full
-freeze_vision_tower: false  # choices: [true, false]
+freeze_vision_tower: true  # choices: [true, false]
 freeze_multi_modal_projector: true  # choices: [true, false]
 train_mm_proj_only: false  # choices: [true, false]
-deepspeed: examples/deepspeed/ds_z3_config.json  # choices: [ds_z0_config.json, ds_z2_config.json, ds_z3_config.json]
+deepspeed: examples/deepspeed/ds_z3_bf16_config.json  # choices: [ds_z0_config.json, ds_z2_config.json, ds_z3_config.json]
 
 ### dataset
-dataset: cam_motion_balanced_vqa, cam_motion_imbalanced_vqa, cam_motion_caption
+dataset: cam_motion_balanced_vqa, cam_motion_imb_raw, cam_motion_caption
 template: qwen2_vl
 cutoff_len: 4096
 max_samples: 100000
@@ -23,19 +23,19 @@ overwrite_cache: true
 preprocessing_num_workers: 64
 
 ### output
-output_dir: saves/qwen2.5_vl-7b/full/sft/bal_imb_cap_full_lr2e-4_epoch10.0_freezevisFalse_fps8
+output_dir: saves/qwen2.5-vl-32b
 logging_steps: 10
 save_steps: 800
 plot_loss: true
 overwrite_output_dir: true
 
 ### train
-per_device_train_batch_size: 4
+per_device_train_batch_size: 1
 gradient_accumulation_steps: 2
-learning_rate: 1.0e-4
-num_train_epochs: 10.0
+learning_rate: 1.0e-5
+num_train_epochs: 6.0
 lr_scheduler_type: cosine
-warmup_ratio: 0.1
+warmup_ratio: 0.05
 # pure_bf16: true
 ddp_timeout: 180000000
 flash_attn: fa2
@@ -43,7 +43,7 @@ bf16: true
 use_adam_mini: false
 
 # eval
-val_size: 200
-per_device_eval_batch_size: 1
-eval_strategy: steps
-eval_steps: 1000
+# val_size: 200
+# per_device_eval_batch_size: 1
+# eval_strategy: steps
+# eval_steps: 1000

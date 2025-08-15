@@ -1,34 +1,7 @@
 {
-  "cam_motion_cam_centric_only": {
-    "file_name": "./cam_motion_LAMBDA/cam_centric_only.json",
-    "formatting": "sharegpt",
-    "columns": {
-      "messages": "messages",
-      "videos": "videos"
-    },
-    "tags": {
-      "role_tag": "role",
-      "content_tag": "content",
-      "user_tag": "user",
-      "assistant_tag": "assistant"
-    }
-  },
-  "cam_motion_bal_raw": {
-    "file_name": "./cam_motion_LAMBDA/bal_raw.json",
-    "formatting": "sharegpt",
-    "columns": {
-      "messages": "messages",
-      "videos": "videos"
-    },
-    "tags": {
-      "role_tag": "role",
-      "content_tag": "content",
-      "user_tag": "user",
-      "assistant_tag": "assistant"
-    }
-  },
+
   "cam_motion_imb_raw": {
-    "file_name": "./cam_motion_LAMBDA/imb_raw.json",
+    "file_name": "./cam_motion/imb_raw.json",
     "formatting": "sharegpt",
     "columns": {
       "messages": "messages",
@@ -42,7 +15,7 @@
     }
   },
   "cam_motion_balanced_vqa": {
-    "file_name": "./cam_motion_LAMBDA/balanced_vqa.json",
+    "file_name": "./cam_motion/balanced_vqa.json",
     "formatting": "sharegpt",
     "columns": {
       "messages": "messages",
@@ -56,21 +29,7 @@
     }
   },
   "cam_motion_caption": {
-    "file_name": "./cam_motion_LAMBDA/captionset.json",
-    "formatting": "sharegpt",
-    "columns": {
-      "messages": "messages",
-      "videos": "videos"
-    },
-    "tags": {
-      "role_tag": "role",
-      "content_tag": "content",
-      "user_tag": "user",
-      "assistant_tag": "assistant"
-    }
-  },
-  "cam_motion_imbalanced_vqa": {
-    "file_name": "./cam_motion_LAMBDA/imbalanced_vqa.json",
+    "file_name": "./cam_motion/captionset.json",
     "formatting": "sharegpt",
     "columns": {
       "messages": "messages",
@@ -288,7 +247,6 @@
   "dasd_nosys": {
     "file_name": "alpaca_formatted_data_final_summarized_nosys.json"
   },
-  
   "cam_centric": {
     "file_name": "/home/cmitra/cam_centric.json",
     "formatting": "sharegpt",
