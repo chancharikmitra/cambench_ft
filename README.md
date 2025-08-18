@@ -29,7 +29,9 @@ python data_download.py
 llamafactory-cli train examples/train_full/camerabench_7b.yaml
 ```
 
-Scripts are available for model sizes 32B and 72B as well.
+Scripts are available for model sizes 32B and 72B as well. 
+
+For any additional details about training options, please refer to the LLaMA-Factory information below and throughout the repo. This shouldn't be necessary, however.
 
 ![# LLaMA Factory](assets/logo.png)
 
