@@ -2,12 +2,6 @@
 
 Finetune Large Multimodal Models on camera motion understanding using [CameraBench](https://linzhiqiu.github.io/papers/camerabench/) - a comprehensive dataset for understanding camera motion in videos, designed and validated by experts. We use a modified version of the LLaMA-Factory codebase to finetune our models.
 
-## Data Download
-
-Download the videos from the following HuggingFace (repo)[https://huggingface.co/datasets/chancharikm/cambench_train_videos].
-
-Now, go to `data/cam_motion` (where our prompts and annotations are saved) and make sure to update the video paths with the proper directory where you saved the videos.
-
 ## Code Setup:
 
 1. Follow all setup instructions for LLaMA-Factory Below
@@ -20,6 +14,14 @@ Now, go to `data/cam_motion` (where our prompts and annotations are saved) and m
 Note: It is possible you may need to set your `HF_TOKEN` as well if you get an error related to the processor.
 
 If you would like to use multinode finetuning, please set up according to your system requirements. Relevant code in: `src/llamafactory/cli.py`.
+
+## Data Download
+
+Download the videos from the following HuggingFace [repo](https://huggingface.co/datasets/chancharikm/cambench_train_videos) into the specified directory`data/videos`. You can simply use our script:
+
+```python
+python data_download.py
+```
 
 ## Running Finetuning Code:
 
