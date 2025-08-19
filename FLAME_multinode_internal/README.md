@@ -28,7 +28,13 @@ export DISABLE_VERSION_CHECK=1
 
 **Note:** You may need to set your `HF_TOKEN` environment variable if you encounter processor-related errors.
 
-### 2. Configure Multinode Script
+### 2. Set up GCS Data Storage
+
+The directions to set up GCS data storage can be found here:
+
+https://drive.google.com/file/d/1VpfI0UhSaoCZURJynpxC13SW1C2lgm2t/view
+
+### 3. Configure Multinode Script
 
 Before running, update the `cambench_7b_multinode.sh` script with your HuggingFace token:
 
@@ -36,9 +42,33 @@ Before running, update the `cambench_7b_multinode.sh` script with your HuggingFa
 export HF_TOKEN="your_token_here"
 ```
 
+And your GCS bucket and save path:
+
+```bash
+SAVE_PATH="saves_7b_1_3_6_multinode"
+HF_REPO="your_token_here"
+
+# Paths
+GCS_BUCKET="gs://cmu-gpucloud-cmitra"
+```
+
+Your downloaded folders and paths may be different, so remember to change or double check this part in the script:
+
+```bash
+if [ ! -d "video_annotation" ]; then
+    echo "Node $SLURM_NODEID: Data not found, downloading..."
+    gcloud storage cp "${GCS_BUCKET}/video_annotation.tar.gz" ${LOCAL_PATH}/
+    tar -xzf video_annotation.tar.gz
+    rm video_annotation.tar.gz
+    echo "Node $SLURM_NODEID: Data download and extraction completed"
+else
+    echo "Node $SLURM_NODEID: Data already exists, skipping download"
+fi
+```
+
 ## SLURM Configuration
 
-The `launcher_7b.sh` script contains the following key SLURM parameters:
+The `launcher.sh` script contains the following key SLURM parameters:
 
 | Parameter | Value | Description |
 |-----------|--------|-------------|
@@ -57,6 +87,7 @@ The `launcher_7b.sh` script contains the following key SLURM parameters:
 - **No shared storage** between nodes - each node has its own local storage
 - Commands only run on the head node unless executed with `srun`
 - Use `srun` to execute scripts across all allocated nodes simultaneously
+- **Data is stored in the `/tmp` folder of each node and is cleaned up after each run on that node** - this is especially important to consider when a job is restarted from requeueing or preempted (but this is handled in the current script - always redownloads data on each node).
 
 ### Partition Limits
 | Partition | Max Time | Max Nodes | Priority | Preemption Risk |

@@ -70,7 +70,6 @@ if [ ! -d "video_annotation" ]; then
     echo "Node $SLURM_NODEID: Data not found, downloading..."
     gcloud storage cp "${GCS_BUCKET}/video_annotation.tar.gz" ${LOCAL_PATH}/
     tar -xzf video_annotation.tar.gz
-    mv data3/zhiqiul/video_annotation video_annotation
     rm video_annotation.tar.gz
     echo "Node $SLURM_NODEID: Data download and extraction completed"
 else
