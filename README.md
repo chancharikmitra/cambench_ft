@@ -52,6 +52,7 @@ The HuggingFace Trainer parameters are commented out in the existing configs. To
 - Uncomment the HF-related lines in your config
 - Add your own repository name (e.g., `hub_model_id: "username/model-name"`)
 - Set `push_to_hub: true`
+- You can read more about the different checkpointing strategy, but the current one will allow restarts from the previously saved checkpoint.
 
 ### Resuming from Checkpoints
 
