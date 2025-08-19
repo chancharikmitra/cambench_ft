@@ -10,6 +10,7 @@ Finetune Large Multimodal Models on camera motion understanding using [CameraBen
 4. pip install deepspeed --use-pep517
 5. pip install flash-attn --no-build-isolation --use-pep517
 6. export DISABLE_VERSION_CHECK=1
+7. pip install hf_xet
 
 Note: It is possible you may need to set your `HF_TOKEN` as well if you get an error related to the processor.
 
@@ -32,6 +33,62 @@ llamafactory-cli train examples/train_full/camerabench_7b.yaml
 Scripts are available for model sizes 32B and 72B as well. 
 
 For any additional details about training options, please refer to the LLaMA-Factory information below and throughout the repo. This shouldn't be necessary, however.
+
+## Uploading Weights/Checkpoints to HuggingFace
+
+The LLaMA-Factory codebase contains built-in functionality for uploading checkpoints to HuggingFace. 
+
+### Setup and Configuration
+
+**1. Authentication:**
+Set your HuggingFace token as an environment variable:
+```bash
+export HF_TOKEN=your_huggingface_token_here
+```
+Or login via CLI: `huggingface-cli login`
+
+**2. Enable HF Upload:**
+The HuggingFace Trainer parameters are commented out in the existing configs. To enable HF checkpointing:
+- Uncomment the HF-related lines in your config
+- Add your own repository name (e.g., `hub_model_id: "username/model-name"`)
+- Set `push_to_hub: true`
+
+### Resuming from Checkpoints
+
+To restart training from a HuggingFace checkpoint:
+
+1. Download the entire HF repo into your specified local save directory
+2. Set `resume_from_checkpoint: true` in your config
+
+⚠️ **Important:** Setting `resume_from_checkpoint: true` on a fresh run with no existing checkpoint will cause an error.
+
+### Helper Script for Downloading Checkpoints
+
+```python
+from huggingface_hub import snapshot_download
+import os
+
+def download_checkpoint(repo_id, local_dir, token=None):
+    """Download HuggingFace checkpoint to resume training."""
+    try:
+        snapshot_download(
+            repo_id=repo_id,
+            local_dir=local_dir,
+            token=token or os.getenv('HF_TOKEN'),
+            resume_download=True,
+            local_dir_use_symlinks=False
+        )
+        print(f"✓ Downloaded {repo_id} to {local_dir}")
+        return True
+    except Exception as e:
+        print(f"✗ Download failed: {e}")
+        return False
+
+# Usage example:
+download_checkpoint("username/model-checkpoint", "./checkpoints/downloaded")
+```
+
+**Requirements:** `pip install huggingface_hub`
 
 ![# LLaMA Factory](assets/logo.png)
 
