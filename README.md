@@ -11,6 +11,7 @@ Finetune Large Multimodal Models on camera motion understanding using [CameraBen
 5. pip install flash-attn --no-build-isolation --use-pep517
 6. export DISABLE_VERSION_CHECK=1
 7. pip install hf_xet
+8. pip install -U "huggingface_hub[cli]"
 
 Note: It is possible you may need to set your `HF_TOKEN` as well if you get an error related to the processor.
 
