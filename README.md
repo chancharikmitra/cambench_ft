@@ -1,28 +1,48 @@
 # Directions for Using Modified LLaMA-Factory Codebase Using CameraBench:
 
 Finetune Large Multimodal Models on camera motion understanding using [CameraBench](https://linzhiqiu.github.io/papers/camerabench/) - a comprehensive dataset for understanding camera motion in videos, designed and validated by experts. We use a modified version of the LLaMA-Factory codebase to finetune our models.
+## Code Setup
 
-## Code Setup:
+Follow all setup instructions for LLaMA-Factory, then install additional dependencies:
 
-1. Follow all setup instructions for LLaMA-Factory Below
-2. pip install -e ".[torch,metrics]"
-3. pip install git+https://github.com/huggingface/transformers.git@refs/pull/36188/head
-4. pip install deepspeed --use-pep517
-5. pip install flash-attn --no-build-isolation --use-pep517
-6. export DISABLE_VERSION_CHECK=1
-7. pip install hf_xet
+```bash
+# Install LLaMA-Factory with required extras
+pip install -e ".[torch,metrics]"
 
-Note: It is possible you may need to set your `HF_TOKEN` as well if you get an error related to the processor.
+# Install specific transformers version
+pip install git+https://github.com/huggingface/transformers.git@refs/pull/36188/head
 
-If you would like to use multinode finetuning, please set up according to your system requirements. Relevant code in: `src/llamafactory/cli.py`.
+# Install distributed training dependencies
+pip install deepspeed --use-pep517
+pip install flash-attn --no-build-isolation --use-pep517
+
+# Install additional utilities
+pip install hf_xet
+pip install huggingface_hub[cli]
+
+# Disable version checking
+export DISABLE_VERSION_CHECK=1
+```
+
+**Note:** You may need to set your `HF_TOKEN` environment variable if you encounter processor-related errors:
+
+```bash
+export HF_TOKEN="your_token_here"
+```
+
+### Multinode Training
+
+For multinode finetuning, configure according to your system requirements. The relevant code can be found in `src/llamafactory/cli.py`.
 
 ## Data Download
 
-Download the videos from the following HuggingFace [repo](https://huggingface.co/datasets/chancharikm/cambench_train_videos) into the specified directory`data/videos`. You can simply use our script:
+Download the videos from the following HuggingFace [repo](https://huggingface.co/datasets/chancharikm/cambench_train_videos) into the directory `data/videos`. You can simply use our script:
 
 ```python
 python data_download.py
 ```
+
+The annotations themselves can be found in `data/cam_motion`.
 
 ## Running Finetuning Code:
 
@@ -50,6 +70,11 @@ Or login via CLI: `huggingface-cli login`
 **2. Enable HF Upload:**
 The HuggingFace Trainer parameters are commented out in the existing configs. To enable HF checkpointing:
 - Uncomment the HF-related lines in your config
+```bash
+push_to_hub: true
+hub_strategy: checkpoint
+hub_model_id: hf_user/model_repo_name
+```
 - Add your own repository name (e.g., `hub_model_id: "username/model-name"`)
 - Set `push_to_hub: true`
 - You can read more about the different checkpointing strategy, but the current one will allow restarts from the previously saved checkpoint.
@@ -58,8 +83,9 @@ The HuggingFace Trainer parameters are commented out in the existing configs. To
 
 To restart training from a HuggingFace checkpoint:
 
-1. Download the entire HF repo into your specified local save directory
+1. Download the entire HF repo into your specified local save directory (`output_dir` in the training config)
 2. Set `resume_from_checkpoint: true` in your config
+3. Set `overwrite_output_dir: false` to make sure the downloaded checkpoint is not overwritten
 
 ⚠️ **Important:** Setting `resume_from_checkpoint: true` on a fresh run with no existing checkpoint will cause an error.
 
@@ -88,9 +114,8 @@ def download_checkpoint(repo_id, local_dir, token=None):
 # Usage example:
 download_checkpoint("username/model-checkpoint", "./checkpoints/downloaded")
 ```
-
-**Requirements:** `pip install huggingface_hub`
-
+**LLaMA-Factory README starts below.**
+---
 ![# LLaMA Factory](assets/logo.png)
 
 [![GitHub Repo stars](https://img.shields.io/github/stars/hiyouga/LLaMA-Factory?style=social)](https://github.com/hiyouga/LLaMA-Factory/stargazers)
