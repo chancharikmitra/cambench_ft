@@ -77,7 +77,7 @@ hub_model_id: hf_user/model_repo_name
 ```
 - Add your own repository name (e.g., `hub_model_id: "username/model-name"`)
 - Set `push_to_hub: true`
-- You can read more about the different checkpointing strategy, but the current one will allow restarts from the previously saved checkpoint.
+- You can read more about the different checkpointing strategy in the HF [documentation](https://huggingface.co/docs/transformers/en/main_classes/trainer), but the current one will allow restarts from the previously saved checkpoint.
 
 ### Resuming from Checkpoints
 
