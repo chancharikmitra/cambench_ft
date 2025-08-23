@@ -83,7 +83,7 @@ hub_model_id: hf_user/model_repo_name
 
 To restart training from a HuggingFace checkpoint:
 
-1. Download the entire HF repo into your specified local save directory (`output_dir` in the training config)
+1. Download the entire HF repo using `download_hf_repo` function below into your specified local save directory (`output_dir` in the training config)
 2. Set `resume_from_checkpoint: true` in your config
 3. Set `overwrite_output_dir: false` to make sure the downloaded checkpoint is not overwritten
 
@@ -95,7 +95,7 @@ To restart training from a HuggingFace checkpoint:
 from huggingface_hub import snapshot_download
 import os
 
-def download_checkpoint(repo_id, local_dir, token=None):
+def download_hf_repo(repo_id, local_dir, token=None):
     """Download HuggingFace checkpoint to resume training."""
     try:
         snapshot_download(
