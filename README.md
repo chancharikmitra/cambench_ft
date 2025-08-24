@@ -6,6 +6,10 @@ Finetune Large Multimodal Models on camera motion understanding using [CameraBen
 Follow all setup instructions for LLaMA-Factory, then install additional dependencies:
 
 ```bash
+# Create conda environment
+conda create -n cambench python=3.10 -y
+conda activate cambench
+
 # Install LLaMA-Factory with required extras
 pip install -e ".[torch,metrics]"
 
