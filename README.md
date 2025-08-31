@@ -1,11 +1,17 @@
 # Directions for Using Modified LLaMA-Factory Codebase Using CameraBench:
 
+**Before using the codebase, please fill out the following [form](https://forms.gle/26LB1rouSZsR29Cx9).**
+
 Finetune Large Multimodal Models on camera motion understanding using [CameraBench](https://linzhiqiu.github.io/papers/camerabench/) - a comprehensive dataset for understanding camera motion in videos, designed and validated by experts. We use a modified version of the LLaMA-Factory codebase to finetune our models.
 ## Code Setup
 
 Follow all setup instructions for LLaMA-Factory, then install additional dependencies:
 
 ```bash
+# Create conda environment
+conda create -n cambench python=3.10 -y
+conda activate cambench
+
 # Install LLaMA-Factory with required extras
 pip install -e ".[torch,metrics]"
 
@@ -77,13 +83,13 @@ hub_model_id: hf_user/model_repo_name
 ```
 - Add your own repository name (e.g., `hub_model_id: "username/model-name"`)
 - Set `push_to_hub: true`
-- You can read more about the different checkpointing strategy in the HF [documentation](https://huggingface.co/docs/transformers/en/main_classes/trainer), but the current one will allow restarts from the previously saved checkpoint.
+- You can read more about the different checkpointing strategy in the HF [documentation](https://huggingface.co/docs/transformers/en/main_classes/trainer). The current setting may or may not be ideal for your usecase.
 
 ### Resuming from Checkpoints
 
 To restart training from a HuggingFace checkpoint:
 
-1. Download the entire HF repo into your specified local save directory (`output_dir` in the training config)
+1. Download the entire HF repo using `download_hf_repo` function below into your specified local save directory (`output_dir` in the training config)
 2. Set `resume_from_checkpoint: true` in your config
 3. Set `overwrite_output_dir: false` to make sure the downloaded checkpoint is not overwritten
 
@@ -95,7 +101,7 @@ To restart training from a HuggingFace checkpoint:
 from huggingface_hub import snapshot_download
 import os
 
-def download_checkpoint(repo_id, local_dir, token=None):
+def download_hf_repo(repo_id, local_dir, token=None):
     """Download HuggingFace checkpoint to resume training."""
     try:
         snapshot_download(
