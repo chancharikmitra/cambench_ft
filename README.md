@@ -1,6 +1,6 @@
 # Directions for Using Modified LLaMA-Factory Codebase Using CameraBench:
 
-**Before using the codebase, please fill out the following [form](https://forms.gle/26LB1rouSZsR29Cx9).**
+**Before using the codebase, please fill out the following [form](https://forms.gle/26LB1rouSZsR29Cx9), especially to receive access to the CameraBench training set.**
 
 Finetune Large Multimodal Models on camera motion understanding using [CameraBench](https://linzhiqiu.github.io/papers/camerabench/) - a comprehensive dataset for understanding camera motion in videos, designed and validated by experts. We use a modified version of the LLaMA-Factory codebase to finetune our models.
 ## Code Setup
