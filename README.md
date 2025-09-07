@@ -24,7 +24,7 @@ pip install flash-attn --no-build-isolation --use-pep517
 
 # Install additional utilities
 pip install hf_xet
-pip install huggingface_hub[cli]
+pip install 'huggingface_hub[cli]'
 
 # Disable version checking
 export DISABLE_VERSION_CHECK=1

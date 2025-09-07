@@ -3,7 +3,6 @@
 Data Download Script for CameraBench Videos
 Downloads videos from HuggingFace repository for camera motion understanding.
 """
-
 import os
 import time
 from pathlib import Path
@@ -18,14 +17,14 @@ except ImportError:
 
 def main():
     repo_id = "chancharikm/cambench_train_videos"
-    output_dir = "data/videos"
+    base_dir = "data"
     
     print("Downloading CameraBench videos...")
     print(f"Repository: {repo_id}")
-    print(f"Output directory: {output_dir}")
+    print(f"Output directory: {base_dir}/videos/")
     
     # Create output directory
-    Path(output_dir).mkdir(parents=True, exist_ok=True)
+    Path(base_dir).mkdir(parents=True, exist_ok=True)
     
     max_retries = 3
     base_delay = 2  # Base delay in seconds
@@ -37,18 +36,18 @@ def main():
                 delay = base_delay * (2 ** (attempt - 1))  # Exponential backoff
                 print(f"Waiting {delay} seconds before retry...")
                 time.sleep(delay)
-            disable_progress_bars()
+            
             # Download videos with rate limiting considerations
-            snapshot_download(
+            local_dir = snapshot_download(
                 repo_id=repo_id,
                 repo_type="dataset",
-                local_dir="data",
+                local_dir=base_dir,
                 allow_patterns="videos/*",
                 max_workers=1,    # Use single thread to avoid overwhelming the server
                 token=None        # Use default token handling
             )
             
-            print(f"Videos downloaded successfully to ./{output_dir}/")
+            print(f"Videos downloaded successfully to {local_dir}/videos/")
             return  # Success, exit the function
             
         except Exception as e:

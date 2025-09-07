@@ -183,4 +183,5 @@ data/dasd_data/nemotron*
 data/multimodal_cot_images_old/*
 data/dasd_data/llava_cot_sum_dpo.json
 data/dasd_data/llava_cot_sum_sft.json
+data/videos/
 # data/
