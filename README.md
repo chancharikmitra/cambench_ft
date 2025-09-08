@@ -42,13 +42,17 @@ For multinode finetuning, configure according to your system requirements. The r
 
 ## Data Download
 
-Download the videos from the following HuggingFace [repo](https://huggingface.co/datasets/chancharikm/cambench_train_videos) into the directory `data/videos`. You can simply use our script:
+Download the videos from the following HuggingFace [repo](https://huggingface.co/datasets/chancharikm/cambench_train_videos) into the directory `data/videos`.s themselves can be found in `data/cam_motion`.
 
-```python
-python data_download.py
 ```
+wget https://huggingface.co/datasets/chancharikm/cambench_train_videos/resolve/main/videos.zip
 
-The annotations themselves can be found in `data/cam_motion`.
+mkdir -p data/videos
+
+unzip videos.zip -d data/videos/
+
+rm videos.zip
+```
 
 ## Running Finetuning Code:
 
