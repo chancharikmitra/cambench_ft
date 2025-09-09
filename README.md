@@ -1,6 +1,6 @@
 # Directions for Using Modified LLaMA-Factory Codebase Using CameraBench:
 
-**Before using the codebase, please fill out the following [form](https://forms.gle/26LB1rouSZsR29Cx9), especially in order to receive access to the CameraBench training set.**
+**Please fill out the following [form](https://forms.gle/26LB1rouSZsR29Cx9) in order to receive the training set annotations.**
 
 Finetune Large Multimodal Models on camera motion understanding using [CameraBench](https://linzhiqiu.github.io/papers/camerabench/) - a comprehensive dataset for understanding camera motion in videos, designed and validated by experts. We use a modified version of the LLaMA-Factory codebase to finetune our models.
 ## Code Setup
@@ -42,7 +42,9 @@ For multinode finetuning, configure according to your system requirements. The r
 
 ## Data Download
 
-Download the videos from the following HuggingFace [repo](https://huggingface.co/datasets/chancharikm/cambench_train_videos) into the directory `data/videos`.s themselves can be found in `data/cam_motion`.
+Download the videos from the following HuggingFace [repo](https://huggingface.co/datasets/chancharikm/cambench_train_videos) into the directory `data/videos`. 
+
+To get access to the annotations, please fill out the Google Form at the top of this README and unzip them into `data/cam_motion`.
 
 ```
 wget https://huggingface.co/datasets/chancharikm/cambench_train_videos/resolve/main/videos.zip
